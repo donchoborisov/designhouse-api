@@ -35,7 +35,7 @@ class SettingsController extends Controller
 
           ]);
 
-          return new UserResource($user);
+          return new UserResource($user->fresh());
 
     }
     public function updatePassword(Request $request)
@@ -45,6 +45,12 @@ class SettingsController extends Controller
             'password'=> ['required','confirmed', new checkSamePassword],
 
         ]);
+        
+        $request->user()->update([
+            'password'=> bcrypt($request->password)
+
+        ]);
+
         return response()->json(['message' => 'Password updated'],200); 
     }
 }

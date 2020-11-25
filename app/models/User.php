@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','tagline','about','username','available_to_hire','formatted_address'
+        'name', 'email', 'password','tagline','about','username','available_to_hire','formatted_address','location'
     ];
 
     protected $spatialFields = [
@@ -70,5 +70,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+
+    public function designs(){
+        return $this->hasMany(Design::class);
     }
 }
